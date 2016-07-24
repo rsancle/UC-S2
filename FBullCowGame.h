@@ -35,12 +35,13 @@ public:
 	void Reset(); //TODO make a more rich return value
 	
 	//counts bulls and cows, and increasses turn a number assuming valid guess
-	FBullCowCount SubmitGuess(FString);
+	FBullCowCount SubmitValidGuess(FString);
 
 private:
 	//les inicialitzem al constuctor
 	int32 MyCurrentTry;
 	int32 MyMaxTries;
 	FString MyHiddenWord;
+	bool BGameIsWon;
 
 };

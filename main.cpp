@@ -42,11 +42,13 @@ FBulllCowGame BCGame; //instantiate a new game
 //the main project
 int main() 
 {
-	PrintIntro();
-	do
-	{
+	
+	bool bPlayAgain = false;
+	do {
+		PrintIntro();
 		PlayGame();
-	} while (AskToPlayAgain());
+		bPlayAgain = AskToPlayAgain();
+	} while (bPlayAgain);
 	
 	
 	
@@ -57,15 +59,17 @@ void PlayGame()
 {
 	BCGame.Reset();
 	int32 MaxTries = BCGame.GetMaxTries();
+
 	//loop for the number of turns asking for guesses
-	//TODO change from FOR to WHILE loop once we are validating tries
-	for (int32 i = 0; i < MaxTries; i++)
+	//is NOT won and there are still tries remainig
+	while (!BCGame.IsGameWon() && BCGame.GetCurrentTry() <= MaxTries)
 	{
-		FText Guess = GetValidGuess();//TODO make loop checking valid
+
+		FText Guess = GetValidGuess();
 			
 
 		//Submit valid guess to the game
-		FBullCowCount BullCowCount = BCGame.SubmitGuess(Guess);
+		FBullCowCount BullCowCount = BCGame.SubmitValidGuess(Guess);
 		//Print number of bulls and cows
 		std::cout << "Bulls = " << BullCowCount.Bulls;
 		std::cout << ". Cows = " << BullCowCount.Cows << std::endl;
@@ -83,7 +87,7 @@ void PrintIntro()
 	//introduce the game
 
 	std::cout << "Welcome to Bulls and Cows\n";
-	std::cout << "Can you guess the " << BCGame.GetHiddenWordLength() << " letter word. \n";
+	std::cout << "Can you guess the " << BCGame.GetHiddenWordLength();
 	std::cout << " letter isogram I'm thinking of? \n";
 	std::cout << std::endl;
 
@@ -92,17 +96,19 @@ void PrintIntro()
 
 FText GetValidGuess()
 {
+	FText Guess = "";
 	EGuessStatus Status = EGuessStatus::Invalid_Status;
-	do
-	{
+
+	do{
 
 		int32 CurrentTry = BCGame.GetCurrentTry();
-		FText Guess = "";
 		//get a guess from the player
 		std::cout << "Try " << CurrentTry << ". Enter your guess: ";
+		
 		std::getline(std::cin, Guess);
 
-		EGuessStatus Status = BCGame.CheckGuessValidity(Guess);
+		Status = BCGame.CheckGuessValidity(Guess);
+
 		switch (Status)
 		{
 		case EGuessStatus::Wrong_Length: 
@@ -115,12 +121,15 @@ FText GetValidGuess()
 		case EGuessStatus::Not_Lowercase:
 			std::cout << "Please enter all lowercase letters.\n";
 			break;
-
 		default:
 			return Guess;
+			break;
 		}
 		std::cout << std::endl;
 	} while (Status != EGuessStatus::OK); //Keep looping until we get valid input
+	
+	
+	
 }
 
 void PrintBack(FText Guess)

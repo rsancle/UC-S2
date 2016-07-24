@@ -26,9 +26,9 @@ int32 FBulllCowGame::GetHiddenWordLength() const
 void FBulllCowGame::Reset()
 {
 	constexpr int32 MAX_TRIES = 8;
-	MyMaxTries = MAX_TRIES;
+	const FString HIDDEN_WORD = "planet";
 
-	const FString HIDDEN_WORD = "and";
+	MyMaxTries = MAX_TRIES;
 	MyHiddenWord = HIDDEN_WORD;
 	MyCurrentTry = 1;
 	return;
@@ -36,7 +36,7 @@ void FBulllCowGame::Reset()
 
 bool FBulllCowGame::IsGameWon() const
 {
-	return false;
+	return BGameIsWon;
 }
 
 EGuessStatus FBulllCowGame::CheckGuessValidity(FString Guess) const
@@ -55,12 +55,14 @@ EGuessStatus FBulllCowGame::CheckGuessValidity(FString Guess) const
 	}
 	else if (Guess.length() != GetHiddenWordLength()) {
 		return EGuessStatus::Wrong_Length;
-	}else{
+	}
+	else
+	{
 		return EGuessStatus::OK;
 	}
 }
 //recives a valid guess, increments
-FBullCowCount FBulllCowGame::SubmitGuess(FString Guess)
+FBullCowCount FBulllCowGame::SubmitValidGuess(FString Guess)
 {
 	//increments the turn number
 	MyCurrentTry++;
@@ -88,6 +90,13 @@ FBullCowCount FBulllCowGame::SubmitGuess(FString Guess)
 		}
 	}
 
+	if (BullCowCount.Bulls == HiddenWordLength) {
+		BGameIsWon = true;
+	}
+	else 
+	{
+		BGameIsWon = false;
+	}
 
 	return BullCowCount;
 }
