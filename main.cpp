@@ -32,6 +32,7 @@ using int32 = int;
 
 void PrintIntro();
 void PlayGame();
+void PrintGameSummary();
 FText GetValidGuess();
 bool AskToPlayAgain();
 
@@ -44,6 +45,9 @@ int main()
 {
 	
 	bool bPlayAgain = false;
+
+	
+
 	do {
 		PrintIntro();
 		PlayGame();
@@ -78,7 +82,10 @@ void PlayGame()
 		//PrintBack(Guess);
 	}
 
-	//TODO summarise game
+	//summarise game
+	PrintGameSummary();
+
+	return;
 }
 
 
@@ -140,11 +147,24 @@ void PrintBack(FText Guess)
 
 bool AskToPlayAgain()
 {
-	std::cout << "Do you want to play again (y/n)?";
+	std::cout << "Do you want to play again with the same word (y/n)?";
 	FText Response = "";
 	std::getline(std::cin, Response);
 
 	// chars in single quotes, std::strings double quotes
 	return (Response[0] == 'y' || Response[0] == 'Y');
 
+}
+
+void PrintGameSummary() 
+{
+	if (BCGame.IsGameWon()) {
+		std::cout << "WELL DONE- YOU WIN!\n";
+	}
+	else
+	{
+		std::cout << "Better luck next time! \n";
+	}
+
+	return;
 }
