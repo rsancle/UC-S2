@@ -1,2 +1,7 @@
-﻿  FBullCowGame.cpp
-  BullCowGame.vcxproj -> C:\Users\user\Documents\Visual Studio 2015\Projects\Section_02\Debug\BullCowGame.exe
+﻿  main.cpp
+c:\users\user\documents\c++ projects\uc-s2\main.cpp(18): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  FBullCowGame.cpp
+  Generating Code...
+c:\users\user\documents\c++ projects\uc-s2\main.cpp(140): warning C4715: 'GetValidGuess': not all control paths return a value
+  BullCowGame.vcxproj -> C:\Users\user\Documents\c++ projects\UC-S2\Debug\BullCowGame.exe
+  BullCowGame.vcxproj -> C:\Users\user\Documents\c++ projects\UC-S2\Debug\BullCowGame.pdb (Full PDB)

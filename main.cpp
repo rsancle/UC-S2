@@ -3,6 +3,7 @@ This acts as the view in a MVC pattern, and is responsible for all
 user interaction. For game logic see the FBullCowGame class.
 */
 
+#pragma once
 
 /*importem la llibreria estandard iostream, que conté 
 * els objectes basics com FText o std(standar)
@@ -26,10 +27,11 @@ user interaction. For game logic see the FBullCowGame class.
 escriure funcions i perjudicarnos en apps complexes
 */
 
-
+//make sintax unreal friendly
 using FText = std::string;
 using int32 = int;
 
+//function prototypes
 void PrintIntro();
 void PlayGame();
 void PrintGameSummary();
@@ -107,10 +109,10 @@ FText GetValidGuess()
 	EGuessStatus Status = EGuessStatus::Invalid_Status;
 
 	do{
-
+		int32 MaxTries = BCGame.GetMaxTries();
 		int32 CurrentTry = BCGame.GetCurrentTry();
 		//get a guess from the player
-		std::cout << "Try " << CurrentTry << ". Enter your guess: ";
+		std::cout << "Try " << CurrentTry << " of " << MaxTries << ". Enter your guess: ";
 		
 		std::getline(std::cin, Guess);
 

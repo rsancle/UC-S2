@@ -40,7 +40,7 @@ public:
 private:
 	//les inicialitzem al constuctor
 	int32 MyCurrentTry;
-	int32 MyMaxTries;
+	//int32 MyMaxTries;
 	FString MyHiddenWord;
 	bool BGameIsWon;
 	bool IsIsogram(FString) const;
